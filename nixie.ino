@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include <Dictionary.h>
 #include <NodeArray.h>
 
@@ -6,7 +5,15 @@ const int ser = 2;
 const int clk = 3;
 const int latch = 4;
 
+  int x = 0;
+  int y = 0;
+  int z = 0;
 
+  int h1 = 1;
+  int h2 = 1;
+  int m1 = 2;
+  int m2 = 2;
+  
 Dictionary &tube1 = *(new Dictionary(3));
 Dictionary &tube2 = *(new Dictionary(10));
 Dictionary &tube3 = *(new Dictionary(6));
@@ -88,40 +95,70 @@ void setup() {
   digitalWrite(ser, LOW);
   digitalWrite(clk, LOW);
   digitalWrite(latch, LOW);
-  tube1("0","19");
-  tube1("1","17");
-  tube1("2","18");
+  tube1("0","22");
+  tube1("1","21");
+  tube1("2","26");
   tube2("0","27");
-  tube2("1","20");
-  tube2("2","21");
-  tube2("3","22");
-  tube2("4","23");
-  tube2("5","16");
-  tube2("6","10");
-  tube2("7","30");
-  tube2("8","29");
-  tube2("9","28");
-  tube3("0","13");
-  tube3("1","12");
-  tube3("2","14");
-  tube3("3","15");
+  tube2("1","12");
+  tube2("2","18");
+  tube2("3","30");
+  tube2("4","29");
+  tube2("5","19");
+  tube2("6","17");
+  tube2("7","28");
+  tube2("8","23");
+  tube2("9","13");
+  tube3("0","14");
+  tube3("1","10");
+  tube3("2","15");
+  tube3("3","1");
   tube3("4","8");
-  tube3("5","26");
-  tube4("0","1");
+  tube3("5","20");
+  tube4("0","2");
   tube4("1","9");
-  tube4("2","11");
-  tube4("3","0");
-  tube4("4","6");
-  tube4("5","7");
-  tube4("6","5");
+  tube4("2","0");
+  tube4("3","5");
+  tube4("4","16");
+  tube4("5","11");
+  tube4("6","7");
   tube4("7","4");
-  tube4("8","3");
-  tube4("9","2");
+  tube4("8","6");
+  tube4("9","3");
+  clear();
+ // putForward(2);
+  }
+
+void demo1(){
+   if(x>2) x = 0;
+    if(y>9) y = 0;
+    if(z>5) z = 0;
+    display(x,y,z,y);
+    delay(500);
+    clear();
+    x++;
+    y++;
+    z++;
+}
+
+void clock(){
+  display(h1,h2,m1,m2);
+  delay(60000);
+  m2++;
+  if(m2 == 10){
+    m2 = 0;
+    m1++;
+    if(m1 == 6){
+      m1 = 0;
+      h2++;
+      if(h2 == 10){
+        h2 = 0;
+        h1++;
+        if(h1 == 3) h1 = 0;
+      }
+    }
+  }
   clear();
 }
 
 void loop() {
-  display(random(0,3),random(0,10),random(0,6),random(0,10));
-  delay(80);
-  clear();
-}
+demo1();}
